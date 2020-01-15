@@ -1,0 +1,12 @@
+version: "3"
+services:
+  node:
+    build: .
+    image: drive.indexlivingmall.com/redirect-services:latest
+    working_dir: /usr/src/app
+    command: "npm start"
+    environment:
+      - NODE_ENV=production
+    ports:
+     - "10002:3000"
+    restart: always
