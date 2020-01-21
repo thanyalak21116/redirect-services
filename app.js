@@ -8,6 +8,8 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import debug from 'debug'
 
+import redirector from './routes/redirector'
+
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'mysql',
 })
@@ -19,6 +21,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(cors())
+
+app.use('/qr', redirector)
 app.get('/', (req, res) => res.send({ success: true, message: 'Hello world' }))
 
 const normalizePort = (val) => {
@@ -32,7 +36,7 @@ const normalizePort = (val) => {
   return false
 }
 
-const port = normalizePort(process.env.PORT || '3000')
+const port = normalizePort(process.env.PORT || '8080')
 
 console.log('running at ', port)
 app.set('port', port)
