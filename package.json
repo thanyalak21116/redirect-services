@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --require @babel/register app.js",
-    "start:dev": "npx nodemon --require @babel/register app.js"
+    "start:nodemon": "nodemon --require @babel/register app.js"
   },
   "author": "",
   "license": "ISC",

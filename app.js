@@ -10,6 +10,8 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import debug from 'debug'
 
+import redirector from './routes/redirector'
+
 const sequelize = new Sequelize('redirector', 'ilmadmin', 'P@ssw0rd', {
   host: '192.168.250.125',
   dialect: 'mysql',
@@ -67,8 +69,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(bodyParser())
 app.use(cors())
-app.get('/', (req, res) => res.send({ success: true, message: 'Hello world...' }))
 
+app.use('/qr', redirector)
 app.get('/article', async (req, res) => {
   console.log('get...')
   const getData = await articleUrl.update({ url: 'www.indexlivingmall.com' }, {
@@ -107,7 +109,6 @@ app.post('/article/:articleNo', async (req, res) => {
     res.send({ success: true, data: insertData })
   }
 })
-
 const normalizePort = (val) => {
   const port = parseInt(val, 10)
   if (Number.isNaN(port)) {
@@ -119,7 +120,7 @@ const normalizePort = (val) => {
   return false
 }
 
-const port = normalizePort(process.env.PORT || '3000')
+const port = normalizePort(process.env.PORT || '8080')
 
 console.log('running at ', port)
 app.set('port', port)
